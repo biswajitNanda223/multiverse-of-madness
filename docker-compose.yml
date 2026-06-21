@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  parking_lot:
+    build:
+      context: .
+      dockerfile: ./projects/parking_lot/Dockerfile
+    container_name: lld_parking_lot
+    ports:
+      - "8001:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  splitwise:
+    build:
+      context: .
+      dockerfile: ./projects/splitwise/Dockerfile
+    container_name: lld_splitwise
+    ports:
+      - "8002:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  vending_machine:
+    build:
+      context: .
+      dockerfile: ./projects/vending_machine/Dockerfile
+    container_name: lld_vending_machine
+    ports:
+      - "8003:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  appsec_forge:
+    build:
+      context: .
+      dockerfile: ./tools/appsec_forge/Dockerfile
+    container_name: lld_appsec_forge
+    ports:
+      - "8004:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
