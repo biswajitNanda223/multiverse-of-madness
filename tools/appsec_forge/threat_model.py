@@ -10,9 +10,7 @@ class STRIDEThreatModeler:
                 ),
             },
             "Tampering": {
-                "threat": (
-                    "Adversary modifies requests, configuration, or database entries."
-                ),
+                "threat": ("Adversary modifies requests, configuration, or database entries."),
                 "mitigation": (
                     "Enforce request validation schemas (Pydantic), validate database "
                     "parameters, and use message signing (HMAC) for external "
@@ -29,9 +27,7 @@ class STRIDEThreatModeler:
                 ),
             },
             "Information Disclosure": {
-                "threat": (
-                    "Adversary views sensitive data (passwords, tokens, customer details)."
-                ),
+                "threat": ("Adversary views sensitive data (passwords, tokens, customer details)."),
                 "mitigation": (
                     "Encrypt data at rest (AES-256) and transit (TLS 1.3), disable "
                     "detailed stack traces in production API error messages, and scan "
@@ -39,9 +35,7 @@ class STRIDEThreatModeler:
                 ),
             },
             "Denial of Service": {
-                "threat": (
-                    "Adversary exhausts system resources, making it unavailable to users."
-                ),
+                "threat": ("Adversary exhausts system resources, making it unavailable to users."),
                 "mitigation": (
                     "Implement rate limiting middleware, deploy behind load "
                     "balancers/CDNs, and set strict memory/process limits."

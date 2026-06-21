@@ -1,7 +1,6 @@
 import os
 import tempfile
 
-
 from .generator import SecurityTemplateGenerator
 from .scanner import SecurityScanner
 from .threat_model import STRIDEThreatModeler

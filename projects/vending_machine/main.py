@@ -32,8 +32,7 @@ class InsertCoinRequest(BaseModel):
     coin: float = Field(
         ...,
         description=(
-            "Denomination of coin: 0.05 (NICKEL), 0.10 (DIME), "
-            "0.25 (QUARTER), 1.00 (DOLLAR)"
+            "Denomination of coin: 0.05 (NICKEL), 0.10 (DIME), " "0.25 (QUARTER), 1.00 (DOLLAR)"
         ),
     )
 
