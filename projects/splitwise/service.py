@@ -1,13 +1,8 @@
 import uuid
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Tuple
 
 from .models import Expense, ExpenseGroup, Split, SplitType, User
-from .strategies import (
-    EqualSplitStrategy,
-    ExactSplitStrategy,
-    PercentSplitStrategy,
-    SplitStrategy,
-)
+from .strategies import EqualSplitStrategy, ExactSplitStrategy, PercentSplitStrategy, SplitStrategy
 
 
 class SplitwiseService:
@@ -111,7 +106,7 @@ class SplitwiseService:
         # Round balances to 2 decimal places
         return {uid: round(bal, 2) for uid, bal in balances.items()}
 
-    def simplify_debts(self, group_id: str) -> List[Dict[str, any]]:
+    def simplify_debts(self, group_id: str) -> List[Dict[str, Any]]:
         """
         Greedy Min-Flow Cash Flow algorithm to simplify debts.
         Returns a list of transactions needed to settle all debts in the group.

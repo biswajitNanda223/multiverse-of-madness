@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import Any, Dict
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
@@ -9,7 +9,10 @@ from .threat_model import STRIDEThreatModeler
 
 app = FastAPI(
     title="SecureForge 2026 API",
-    description="Microservice API for static application vulnerability analysis and STRIDE threat modeling.",
+    description=(
+        "Microservice API for static application vulnerability "
+        "analysis and STRIDE threat modeling."
+    ),
     version="1.0.0",
 )
 
@@ -35,7 +38,7 @@ class ThreatRequest(BaseModel):
 
 
 @app.post("/sec/scan", tags=["Security Scan"])
-def scan_codebase(request: CodeScanRequest) -> Dict[str, any]:
+def scan_codebase(request: CodeScanRequest) -> Dict[str, Any]:
     import os
 
     if not os.path.exists(request.file_path):

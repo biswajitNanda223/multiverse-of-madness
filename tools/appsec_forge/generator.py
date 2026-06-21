@@ -36,8 +36,12 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response.headers["X-Frame-Options"] = "DENY"
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-XSS-Protection"] = "1; mode=block"
-        response.headers["Strict-Transport-Security"] = "max-age=63072000; includeSubDomains; preload"
-        response.headers["Content-Security-Policy"] = "default-src 'self'; frame-ancestors 'none';"
+        response.headers["Strict-Transport-Security"] = (
+            "max-age=63072000; includeSubDomains; preload"
+        )
+        response.headers["Content-Security-Policy"] = (
+            "default-src 'self'; frame-ancestors 'none';"
+        )
         response.headers["Referrer-Policy"] = "no-referrer"
         return response
 
@@ -54,19 +58,23 @@ class RateLimiterMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request, call_next):
         client_ip = request.client.host
         now = time.time()
-        
+
         # Clean expired slots
-        self.clients = {ip: times for ip, times in self.clients.items() if times and times[-1] > now - self.window}
-        
+        self.clients = {
+            ip: times
+            for ip, times in self.clients.items()
+            if times and times[-1] > now - self.window
+        }
+
         client_history = self.clients.get(client_ip, [])
         client_history = [t for t in client_history if t > now - self.window]
-        
+
         if len(client_history) >= self.limit:
             raise HTTPException(
                 status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                 detail="Rate limit exceeded. Try again later."
             )
-            
+
         client_history.append(now)
         self.clients[client_ip] = client_history
         return await call_next(request)
@@ -76,7 +84,12 @@ app.add_middleware(RateLimiterMiddleware, limit=60, window=60)
 # 4. Input Validation & Sanitization (XSS prevention)
 class UserRegistration(BaseModel):
     email: EmailStr
-    password: str = Field(..., min_length=12, max_length=128, description="Strong password policy enforced")
+    password: str = Field(
+        ...,
+        min_length=12,
+        max_length=128,
+        description="Strong password policy enforced"
+    )
     username: str = Field(..., min_length=3, max_length=30)
 
     # Sanitize input on validation
@@ -99,12 +112,12 @@ def register_user(user: UserRegistration):
     # Example using SHA-256 with random salt (minimum requirement)
     salt = secrets.token_hex(16)
     hashed_pwd = hashlib.pbkdf2_hmac(
-        'sha256', 
-        sanitized_user.password.encode('utf-8'), 
-        salt.encode('utf-8'), 
+        'sha256',
+        sanitized_user.password.encode('utf-8'),
+        salt.encode('utf-8'),
         100000
     ).hex()
-    
+
     return {
         "status": "user_registered",
         "username": sanitized_user.username,

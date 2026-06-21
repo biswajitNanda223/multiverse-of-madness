@@ -27,9 +27,7 @@ class HourlyPricingStrategy(PricingStrategy):
         self, entry_time: datetime, exit_time: datetime, vehicle_type: VehicleType
     ) -> float:
         duration = exit_time - entry_time
-        duration_hours = max(
-            1.0, duration.total_seconds() / 3600.0
-        )  # Charge at least 1 hour
+        duration_hours = max(1.0, duration.total_seconds() / 3600.0)  # Charge at least 1 hour
         rate = self.hourly_rates.get(vehicle_type, 2.0)
         return round(duration_hours * rate, 2)
 

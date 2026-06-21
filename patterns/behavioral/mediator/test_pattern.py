@@ -14,7 +14,7 @@ def test_mediator_validation_flow() -> None:
     """Verifies that the mediator blocks logins with empty textboxes and allows valid ones."""
     button = Button()
     textbox = TextBox()
-    mediator = AuthenticationMediator(button, textbox)
+    _ = AuthenticationMediator(button, textbox)
 
     # Click with empty TextBox -> fails validation
     res1 = button.click()

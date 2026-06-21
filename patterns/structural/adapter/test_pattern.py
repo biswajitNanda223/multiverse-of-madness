@@ -10,9 +10,7 @@ def test_target_default_behavior() -> None:
 def test_adaptee_raw_behavior() -> None:
     """Verifies that the Adaptee returns raw reversed content."""
     adaptee = Adaptee()
-    assert (
-        adaptee.specific_request() == ".retpada na sdeen sihT .roivaheb eetpada laicepS"
-    )
+    assert adaptee.specific_request() == ".retpada na sdeen sihT .roivaheb eetpada laicepS"
 
 
 def test_adapter_translation() -> None:

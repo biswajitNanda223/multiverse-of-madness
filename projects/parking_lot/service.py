@@ -27,6 +27,7 @@ from .strategies import (
 class ParkingLotService:
     _instance: Optional["ParkingLotService"] = None
     _lock: Lock = Lock()
+    _initialized: bool
 
     def __new__(cls) -> "ParkingLotService":
         with cls._lock:
@@ -45,9 +46,7 @@ class ParkingLotService:
         self.lock: Lock = Lock()
         self._initialized = True
 
-    def initialize_parking_lot(
-        self, num_floors: int, spots_config: Dict[str, int]
-    ) -> None:
+    def initialize_parking_lot(self, num_floors: int, spots_config: Dict[str, int]) -> None:
         """
         Initializes the parking lot with the specified number of floors and spots.
         Example configuration:
@@ -157,19 +156,13 @@ class ParkingLotService:
                     "occupied_spots": sum(1 for s in floor_spots if s.is_occupied),
                     "available_spots": sum(1 for s in floor_spots if not s.is_occupied),
                     "motorcycle_available": sum(
-                        1
-                        for s in floor_spots
-                        if not s.is_occupied and s.spot_type == "MOTORCYCLE"
+                        1 for s in floor_spots if not s.is_occupied and s.spot_type == "MOTORCYCLE"
                     ),
                     "compact_available": sum(
-                        1
-                        for s in floor_spots
-                        if not s.is_occupied and s.spot_type == "COMPACT"
+                        1 for s in floor_spots if not s.is_occupied and s.spot_type == "COMPACT"
                     ),
                     "large_available": sum(
-                        1
-                        for s in floor_spots
-                        if not s.is_occupied and s.spot_type == "LARGE"
+                        1 for s in floor_spots if not s.is_occupied and s.spot_type == "LARGE"
                     ),
                 }
                 status[f"Floor {floor_idx}"] = floor_stats

@@ -2,7 +2,9 @@ from abc import ABC, abstractmethod
 
 
 class RouteStrategy(ABC):
-    """The Strategy interface declares operations common to all supported versions of some algorithm."""
+    """The Strategy interface declares operations common to all supported
+    versions of some algorithm.
+    """
 
     @abstractmethod
     def build_route(self, start: str, end: str) -> str:

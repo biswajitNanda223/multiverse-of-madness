@@ -14,10 +14,7 @@ def test_routing_strategies() -> None:
 
     # Initialize with road
     navigator = Navigator(road)
-    assert (
-        navigator.calculate_route("Home", "Work")
-        == "Road route from Home to Work via highways."
-    )
+    assert navigator.calculate_route("Home", "Work") == "Road route from Home to Work via highways."
 
     # Change to transit
     navigator.strategy = transit

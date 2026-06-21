@@ -14,17 +14,13 @@ def main() -> None:
     subparsers = parser.add_subparsers(dest="command", help="Available actions")
 
     # Scan command
-    scan_parser = subparsers.add_parser(
-        "scan", help="Scan code for security vulnerabilities"
-    )
+    scan_parser = subparsers.add_parser("scan", help="Scan code for security vulnerabilities")
     scan_parser.add_argument(
         "--path", required=True, help="Path to Python file or directory to scan"
     )
 
     # Generate command
-    gen_parser = subparsers.add_parser(
-        "generate", help="Generate secure boilerplate template"
-    )
+    gen_parser = subparsers.add_parser("generate", help="Generate secure boilerplate template")
     gen_parser.add_argument(
         "--output", required=True, help="Directory to save the secure boilerplate"
     )

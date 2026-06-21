@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import Any, Dict, List
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
@@ -18,7 +18,7 @@ vending_machine = VendingMachine()
 
 # Request/Response Schemas
 class PopulateInventoryRequest(BaseModel):
-    items: List[Dict[str, any]] = Field(
+    items: List[Dict[str, Any]] = Field(
         default=[
             {"name": "Soda", "price": 1.50, "code": "A1", "quantity": 5},
             {"name": "Chips", "price": 1.00, "code": "A2", "quantity": 3},
@@ -31,7 +31,10 @@ class PopulateInventoryRequest(BaseModel):
 class InsertCoinRequest(BaseModel):
     coin: float = Field(
         ...,
-        description="Denomination of coin: 0.05 (NICKEL), 0.10 (DIME), 0.25 (QUARTER), 1.00 (DOLLAR)",
+        description=(
+            "Denomination of coin: 0.05 (NICKEL), 0.10 (DIME), "
+            "0.25 (QUARTER), 1.00 (DOLLAR)"
+        ),
     )
 
 
@@ -54,9 +57,7 @@ def initialize_inventory(request: PopulateInventoryRequest) -> Dict[str, str]:
         vending_machine.set_state(IdleState())
 
         for item_data in request.items:
-            item = Item(
-                name=item_data["name"], price=item_data["price"], code=item_data["code"]
-            )
+            item = Item(name=item_data["name"], price=item_data["price"], code=item_data["code"])
             vending_machine.inventory.add_product(item, item_data["quantity"])
 
         return {"status": "success", "message": "Inventory successfully initialized."}
@@ -65,7 +66,7 @@ def initialize_inventory(request: PopulateInventoryRequest) -> Dict[str, str]:
 
 
 @app.post("/insert-coin", tags=["Vending Machine Actions"])
-def insert_coin(request: InsertCoinRequest) -> Dict[str, any]:
+def insert_coin(request: InsertCoinRequest) -> Dict[str, Any]:
     try:
         # Validate coin from float value
         try:
@@ -73,7 +74,10 @@ def insert_coin(request: InsertCoinRequest) -> Dict[str, any]:
         except ValueError:
             raise HTTPException(
                 status_code=400,
-                detail="Invalid coin value. Allowed: 0.05 (NICKEL), 0.10 (DIME), 0.25 (QUARTER), 1.00 (DOLLAR)",
+                detail=(
+                    "Invalid coin value. Allowed: 0.05 (NICKEL), "
+                    "0.10 (DIME), 0.25 (QUARTER), 1.00 (DOLLAR)"
+                ),
             )
 
         vending_machine.insert_coin(coin_enum)
@@ -87,11 +91,8 @@ def insert_coin(request: InsertCoinRequest) -> Dict[str, any]:
 
 
 @app.post("/select-product", tags=["Vending Machine Actions"])
-def select_product(request: SelectProductRequest) -> Dict[str, any]:
+def select_product(request: SelectProductRequest) -> Dict[str, Any]:
     try:
-        # Save previous state to check transitions
-        prev_state = vending_machine.state.__class__.__name__
-
         # Select product (might trigger dispense if balance is sufficient)
         vending_machine.select_product(request.code)
 
@@ -108,7 +109,7 @@ def select_product(request: SelectProductRequest) -> Dict[str, any]:
 
 
 @app.post("/dispense", tags=["Vending Machine Actions"])
-def dispense_item() -> Dict[str, any]:
+def dispense_item() -> Dict[str, Any]:
     try:
         item, change = vending_machine.check_balance_and_dispense()
         # Format change coins list
@@ -126,7 +127,7 @@ def dispense_item() -> Dict[str, any]:
 
 
 @app.post("/refund", tags=["Vending Machine Actions"])
-def press_refund_button() -> Dict[str, any]:
+def press_refund_button() -> Dict[str, Any]:
     try:
         refunded_coins = vending_machine.press_refund_button()
         refund_amount = sum(c.value for c in refunded_coins)
@@ -142,7 +143,7 @@ def press_refund_button() -> Dict[str, any]:
 
 
 @app.get("/status", tags=["Monitoring"])
-def get_vending_machine_status() -> Dict[str, any]:
+def get_vending_machine_status() -> Dict[str, Any]:
     stock_status = {}
     for code, item in vending_machine.inventory.products.items():
         stock_status[code] = {

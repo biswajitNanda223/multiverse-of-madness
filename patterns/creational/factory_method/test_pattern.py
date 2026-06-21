@@ -14,10 +14,7 @@ def test_road_logistics() -> None:
 
     assert isinstance(transport, Truck)
     assert transport.deliver() == "Delivering by land in a container truck."
-    assert (
-        logistics.plan_delivery()
-        == "Logistics: Delivering by land in a container truck."
-    )
+    assert logistics.plan_delivery() == "Logistics: Delivering by land in a container truck."
 
 
 def test_sea_logistics() -> None:

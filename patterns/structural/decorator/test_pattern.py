@@ -1,8 +1,4 @@
-from patterns.structural.decorator.pattern import (
-    EmailNotifier,
-    SlackDecorator,
-    SMSDecorator,
-)
+from patterns.structural.decorator.pattern import EmailNotifier, SlackDecorator, SMSDecorator
 
 
 def test_base_notifier() -> None:

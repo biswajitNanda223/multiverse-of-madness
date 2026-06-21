@@ -1,9 +1,4 @@
-from patterns.behavioral.command.pattern import (
-    ComplexCommand,
-    Invoker,
-    Receiver,
-    SimpleCommand,
-)
+from patterns.behavioral.command.pattern import ComplexCommand, Invoker, Receiver, SimpleCommand
 
 
 def test_simple_command() -> None:
@@ -16,9 +11,7 @@ def test_complex_command() -> None:
     """Verifies ComplexCommand receiver integration."""
     receiver = Receiver()
     cmd = ComplexCommand(receiver, "Task A", "Task B")
-    expected = (
-        "ComplexCommand: Receiver: Working on Task A and Receiver: Working on Task B"
-    )
+    expected = "ComplexCommand: Receiver: Working on Task A and Receiver: Working on Task B"
     assert cmd.execute() == expected
 
 

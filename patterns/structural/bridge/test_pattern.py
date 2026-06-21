@@ -1,9 +1,4 @@
-from patterns.structural.bridge.pattern import (
-    TV,
-    AdvancedRemoteControl,
-    Radio,
-    RemoteControl,
-)
+from patterns.structural.bridge.pattern import TV, AdvancedRemoteControl, Radio, RemoteControl
 
 
 def test_standard_remote_with_tv() -> None:

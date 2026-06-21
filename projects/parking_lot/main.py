@@ -18,9 +18,7 @@ parking_lot_service = ParkingLotService()
 
 # Request/Response Schemas
 class InitRequest(BaseModel):
-    num_floors: int = Field(
-        ..., ge=1, description="Number of floors in the parking lot"
-    )
+    num_floors: int = Field(..., ge=1, description="Number of floors in the parking lot")
     spots_config: Dict[str, int] = Field(
         default={"motorcycle": 5, "compact": 10, "large": 3},
         description="Configuration of spot counts by type on each floor",
@@ -29,9 +27,7 @@ class InitRequest(BaseModel):
 
 class ParkRequest(BaseModel):
     license_plate: str = Field(..., description="Vehicle's license plate number")
-    vehicle_type: VehicleType = Field(
-        ..., description="Type of vehicle: MOTORCYCLE, CAR, or TRUCK"
-    )
+    vehicle_type: VehicleType = Field(..., description="Type of vehicle: MOTORCYCLE, CAR, or TRUCK")
 
 
 class TicketResponse(BaseModel):
@@ -59,9 +55,7 @@ class PaymentResponse(BaseModel):
 @app.post("/parking-lot/init", tags=["Initialization"])
 def init_parking_lot(request: InitRequest) -> Dict[str, str]:
     try:
-        parking_lot_service.initialize_parking_lot(
-            request.num_floors, request.spots_config
-        )
+        parking_lot_service.initialize_parking_lot(request.num_floors, request.spots_config)
         return {
             "status": "success",
             "message": f"Initialized parking lot with {request.num_floors} floors.",
@@ -73,9 +67,7 @@ def init_parking_lot(request: InitRequest) -> Dict[str, str]:
 @app.post("/park", response_model=TicketResponse, tags=["Parking Operations"])
 def park_vehicle(request: ParkRequest) -> TicketResponse:
     try:
-        ticket = parking_lot_service.park_vehicle(
-            request.license_plate, request.vehicle_type
-        )
+        ticket = parking_lot_service.park_vehicle(request.license_plate, request.vehicle_type)
         return TicketResponse(
             ticket_id=ticket.ticket_id,
             license_plate=ticket.license_plate,

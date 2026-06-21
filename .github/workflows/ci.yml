@@ -34,7 +34,7 @@ jobs:
         run: python -m flake8 --max-line-length=100 --extend-ignore=E203 .
 
       - name: Run Mypy Static Type Checking
-        run: python -m mypy --ignore-missing-imports --disallow-untyped-defs .
+        run: python -m mypy --ignore-missing-imports --disallow-untyped-defs --explicit-package-bases .
 
       - name: Run Pytest Suite
         run: python -m pytest --import-mode=importlib patterns/ projects/ tools/

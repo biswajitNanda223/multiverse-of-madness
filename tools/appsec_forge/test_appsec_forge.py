@@ -1,7 +1,6 @@
 import os
 import tempfile
 
-import pytest
 
 from .generator import SecurityTemplateGenerator
 from .scanner import SecurityScanner

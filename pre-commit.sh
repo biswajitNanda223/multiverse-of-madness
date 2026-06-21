@@ -24,7 +24,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "=== [4/5] Running Mypy (Type Verification) ==="
-mypy .
+mypy --explicit-package-bases .
 if [ $? -ne 0 ]; then
     echo "❌ Mypy static type check failed! Check type annotations."
     exit 1

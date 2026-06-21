@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import List, Tuple
+from typing import List, Tuple, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .service import VendingMachine
 
 from .models import Coin, Item
 
@@ -113,7 +116,8 @@ class SelectProductState(VendingMachineState):
 
             machine.set_state(ReadyState())
             raise ValueError(
-                f"Insufficient balance. Product price: ${item.price:.2f}, balance: ${machine.balance:.2f}"
+                f"Insufficient balance. Product price: ${item.price:.2f}, "
+                f"balance: ${machine.balance:.2f}"
             )
 
         # Transition to DispenseState

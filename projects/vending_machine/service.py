@@ -41,9 +41,7 @@ class VendingMachine:
         denominations = [Coin.DOLLAR, Coin.QUARTER, Coin.DIME, Coin.NICKEL]
 
         for denom in denominations:
-            while (
-                amount >= denom.value - 0.001
-            ):  # check with tolerance for floating precision
+            while amount >= denom.value - 0.001:  # check with tolerance for floating precision
                 change_coins.append(denom)
                 amount = round(amount - denom.value, 2)
 

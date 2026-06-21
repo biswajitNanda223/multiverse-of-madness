@@ -1,6 +1,6 @@
 import os
 import re
-from typing import Dict, List
+from typing import Any, Dict, List
 
 
 class SecurityScanner:
@@ -8,7 +8,8 @@ class SecurityScanner:
         # Regex patterns for static code analysis
         self.rules = {
             "hardcoded_secret": re.compile(
-                r"(?:key|password|secret|token|passwd|api_key)\s*=\s*['\"][a-zA-Z0-9_\-+=/]{8,}['\"]",
+                r"(?:key|password|secret|token|passwd|api_key)"
+                r"\s*=\s*['\"][a-zA-Z0-9_\-+=/]{8,}['\"]",
                 re.IGNORECASE,
             ),
             "weak_hash": re.compile(r"hashlib\.(?:md5|sha1)\(", re.IGNORECASE),
@@ -24,14 +25,29 @@ class SecurityScanner:
         }
 
         self.explanations = {
-            "hardcoded_secret": "CRITICAL: Hardcoded credentials detected. Use environment variables (dotenv) instead.",
-            "weak_hash": "WARNING: Insecure hashing algorithm (MD5 or SHA-1) detected. Use hashlib.sha256 or bcrypt/argon2 instead.",
-            "sql_injection": "CRITICAL: Potential SQL injection detected via string interpolation in database execution. Use parameterized queries.",
-            "insecure_cors": "WARNING: Insecure CORS wildcard configuration ('*') detected. Specify explicit origins to avoid cross-origin exploitation.",
-            "weak_random": "INFO: Standard pseudo-random generator detected. For cryptographic uses (e.g., token generation), use the 'secrets' module.",
+            "hardcoded_secret": (
+                "CRITICAL: Hardcoded credentials detected. Use environment "
+                "variables (dotenv) instead."
+            ),
+            "weak_hash": (
+                "WARNING: Insecure hashing algorithm (MD5 or SHA-1) detected. "
+                "Use hashlib.sha256 or bcrypt/argon2 instead."
+            ),
+            "sql_injection": (
+                "CRITICAL: Potential SQL injection detected via string interpolation "
+                "in database execution. Use parameterized queries."
+            ),
+            "insecure_cors": (
+                "WARNING: Insecure CORS wildcard configuration ('*') detected. "
+                "Specify explicit origins to avoid cross-origin exploitation."
+            ),
+            "weak_random": (
+                "INFO: Standard pseudo-random generator detected. For cryptographic "
+                "uses (e.g., token generation), use the 'secrets' module."
+            ),
         }
 
-    def scan_file(self, file_path: str) -> List[Dict[str, any]]:
+    def scan_file(self, file_path: str) -> List[Dict[str, Any]]:
         vulnerabilities = []
         try:
             with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
@@ -59,7 +75,7 @@ class SecurityScanner:
             )
         return vulnerabilities
 
-    def scan_directory(self, dir_path: str) -> List[Dict[str, any]]:
+    def scan_directory(self, dir_path: str) -> List[Dict[str, Any]]:
         all_vulnerabilities = []
         for root, _, files in os.walk(dir_path):
             # Ignore hidden files, virtual environments and build directories

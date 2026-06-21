@@ -19,9 +19,7 @@ class User(BaseModel):
 class Split(BaseModel):
     user_id: str
     amount: float = 0.0  # The calculated share of this user
-    value: Optional[float] = (
-        None  # Exact amount or percentage value depending on split type
-    )
+    value: Optional[float] = None  # Exact amount or percentage value depending on split type
 
 
 class Expense(BaseModel):
