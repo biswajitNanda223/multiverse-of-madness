@@ -1,14 +1,14 @@
-# Gemini & Agent Guidelines - LLD Monorepo
+# 🌌 Gemini & Agent Guidelines - Multiverse of Madness
 
-Welcome! This repository is a zero-to-advanced, production-grade Low-Level Design (LLD) monorepo. It serves as an educational encyclopedia and reference for Low-Level Design in Python. 
+Welcome! This repository is the **Multiverse of Madness**, a zero-to-advanced, production-grade Low-Level Design (LLD) and High-Level Design (HLD) Python monorepo. It serves as an educational encyclopedia and reference for software design across multiple architectural dimensions. 
 
-As an AI agent or contributor, please follow these guidelines when adding features, code patterns, projects, or documents.
+As an AI agent or contributor, please follow these cosmic guidelines when adding features, design patterns, projects, or documents to ensure perfect order and prevent architectural collapse.
 
 ---
 
-## 1. Directory Structure Rules
+## 1. Directory Structure & Dimensions
 
-All code and documents must be located in their respective directories:
+All code and documents must be located in their respective dimensional planes:
 - **docs/**: High-level or OOP-level concepts (Agile, SOLID, OOP basic elements, Concurrency, Design Principles).
 - **system_design/**: High-Level Design (HLD) concepts, distributed systems building blocks (caching, sharding, CDN, reliability), and interactive Mermaid diagrams.
 - **patterns/<type>/<pattern_name>/**: Concrete design pattern.
@@ -23,7 +23,7 @@ All code and documents must be located in their respective directories:
 
 ---
 
-## 2. Python Coding Style
+## 2. Python Coding Style (Runes of Clarity)
 
 This repository enforces strict, modern Python coding standards:
 - **Type Hinting**: All functions, methods, and classes MUST use type annotations (`typing` module or modern union types).
@@ -44,7 +44,7 @@ To keep documentation clean, visual, and highly readable:
 
 ---
 
-## 4. How to Verify & Validate
+## 4. How to Verify & Validate (Activating the Runes)
 
 Always verify your changes before proposing or committing:
 1. **Install requirements**: `pip install -r requirements.txt`
@@ -54,3 +54,4 @@ Always verify your changes before proposing or committing:
    uvicorn projects.parking_lot.main:app --reload
    ```
    Verify that Swagger UI is accessible at `http://127.0.0.1:8000/docs`.
+
