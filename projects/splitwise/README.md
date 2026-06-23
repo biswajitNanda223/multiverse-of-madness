@@ -1,26 +1,24 @@
-# LLD Project: Splitwise (Expense Sharing System)
+# 💸 LLD Project: Splitwise (Expense Sharing & Debt Simplification)
 
-A Low-Level Design of a production-grade **Splitwise-like Expense Sharing System** in Python, wrapped with a FastAPI interface.
-
----
-
-## 1. System Requirements
-
-1. **User Management**: Support adding users with name, email, and user ID.
-2. **Group Management**: Support adding users to named groups.
-3. **Expense split types**: Support three distinct split strategies:
-   - **Equal Split**: Expense split equally among participants.
-   - **Exact Split**: Specific monetary values declared for each participant (must sum to total expense).
-   - **Percentage Split**: Specific percentages declared for each participant (must sum to 100%).
-4. **Debt Simplification Algorithm**: Minimize the number of transactions to settle debts (Min-Flow Cash Flow optimization).
-5. **FastAPI Web API**: Manage groups, bills, and get simplified payment routes.
+A production-grade, interview-ready **Low-Level Design (LLD)** of an **Expense Sharing System** (Splitwise-like) in Python, featuring extensible split strategies and a greedy debt-simplification algorithm.
 
 ---
 
-## 2. Design Patterns Used
+## 🧭 System Requirements
 
-### Strategy Pattern
-We encapsulate the splitting validation and distribution mathematics within specific `SplitStrategy` objects. This allows the system to easily add new payment splits (like shares or weights) without modifying the core `Expense` engine.
+1. **User & Group Management**: Add users and organize them into distinct expense groups.
+2. **Extensible Split Strategies**: Support three distinct split models:
+   - **Equal Split**: Costs divided evenly among all participants.
+   - **Exact Split**: Specific currency values assigned to each participant (validated to sum to the total bill).
+   - **Percentage Split**: Specific percentage shares assigned to each participant (validated to sum to 100%).
+3. **Debt Simplification**: Automatically minimize the total number of transactions required to settle all debts (Greedy Min-Flow Cash Flow algorithm).
+4. **FastAPI Web API**: Real-world endpoints to manage transactions, query balances, and fetch simplified payment paths.
+
+---
+
+## 🧩 Design Patterns: Strategy Pattern
+
+The validation and calculation of splits are encapsulated within independent `SplitStrategy` objects. This allows the system to easily support new allocation models (e.g. shares, weights) without modifying the core `Expense` class.
 
 ```mermaid
 classDiagram
@@ -47,22 +45,26 @@ classDiagram
 
 ---
 
-## 3. Debt Simplification Algorithm (Min-Flow Cash Flow)
+## 🧮 Debt Simplification Algorithm (Min-Flow Cash Flow)
 
-If User A owes User B $10, and User B owes User C $10, it's simpler for User A to pay User C $10 directly.
-- **Algorithm**:
-  1. Calculate the net balance of each user (`credit` - `debit`).
-  2. Separate users into two lists: debtors (net balance < 0) and creditors (net balance > 0).
-  3. Greedily match the largest debtor with the largest creditor. Settle the maximum possible amount.
-  4. Repeat until all balances are settled (net balance is 0).
+Without simplification, a chain of debts results in excessive transactions. If **A owes B \$10** and **B owes C \$10**, the algorithm simplifies this so **A pays C \$10** directly.
+
+### Step-by-Step Execution:
+1. **Net Balance Calculation**: For each group member, calculate their net balance (`Total Credited - Total Debited`).
+2. **Classify Members**: Split members into two sorted lists:
+   - **Debtors** (Net balance < 0): Sorted ascending (most negative first).
+   - **Creditors** (Net balance > 0): Sorted descending (most positive first).
+3. **Greedy Matching**: Match the largest debtor with the largest creditor. Settle the maximum possible amount, update their balances, and repeat until all balances are zero.
 
 ---
 
-## 4. API Endpoints (FastAPI)
+## 🔌 REST API Endpoints (FastAPI)
 
-- `POST /users`: Register a new user.
-- `POST /groups`: Create an expense group.
-- `POST /groups/{group_id}/members`: Add members to a group.
-- `POST /expenses`: Create an expense in a group using a specified split type.
-- `GET /groups/{group_id}/balances`: Get the raw user balances inside a group.
-- `GET /groups/{group_id}/simplify`: Get the simplified list of transactions to settle the group.
+| Method | Endpoint | Description | Payloads / Parameters |
+| :---: | :--- | :--- | :--- |
+| `POST` | `/users` | Register a new user in the system | `user_id`, `name`, `email` |
+| `POST` | `/groups` | Create a new expense group | `group_id`, `name` |
+| `POST` | `/groups/{group_id}/members` | Add a registered user to an expense group | `user_id` |
+| `POST` | `/groups/{group_id}/expenses` | Log an expense in a group with a split strategy | `description`, `total_amount`, `paid_by`, `split_type`, `splits` |
+| `GET` | `/groups/{group_id}/balances` | Get raw balances (who owes how much) | None |
+| `GET` | `/groups/{group_id}/simplify` | Get the simplified, optimal settlement transaction path | None |

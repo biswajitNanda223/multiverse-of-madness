@@ -1,27 +1,24 @@
-# LLD Project: Vending Machine System
+# 🪙 LLD Project: State Pattern Vending Machine System
 
-A Low-Level Design of a standard **Vending Machine System** using the **State Design Pattern** in Python, wrapped in a FastAPI web interface.
+A production-grade, interview-ready **Low-Level Design (LLD)** of a **Vending Machine System** in Python utilizing the **State Design Pattern** and exposed via **FastAPI**.
 
 ---
 
-## 1. System Requirements
+## 🧭 System Requirements
 
-1. **State Machine Transitions**: Implement a clean state machine handling:
+1. **State-Driven Workflow**: Implement a clean state machine handling:
    - **IdleState**: Initial state, waiting for coin insertion.
-   - **ReadyState**: Coin inserted, waiting for product selection or additional coins.
-   - **SelectProductState**: Product selected, checking price vs balance, dispensing.
-   - **DispenseState**: Item dispensed, calculating refund/change, returning to IdleState.
-2. **Product Inventory**: Track product items (Soda, Chips, Candy) with code, price, and inventory count.
-3. **Coin Handling**: Accept physical denominations (Nickels, Dimes, Quarters, Dollars).
-4. **Refund/Cancel**: Allow users to cancel at any time, returning inserted money.
-5. **FastAPI Web API**: Web interface simulating coin insertion, selection, cancelation, and dispensing.
+   - **ReadyState**: Balance loaded, waiting for product selection or further coins.
+   - **SelectProductState**: Product selected, evaluating cost vs. balance.
+   - **DispenseState**: Item dispensed, change returned, resetting state.
+2. **Product Inventory**: Track product items (e.g. Soda, Chips, Candy) with unique codes, prices, and stock quantities.
+3. **Coin Handling**: Accept physical currency denominations (Nickels, Dimes, Quarters, Dollars).
+4. **Refund/Cancelation**: Allow users to cancel the transaction at any time, returning all inserted coins.
+5. **FastAPI Web API**: Endpoints simulating physical interactions (coin insertion, product selection, refund requests, dispensing).
 
 ---
 
-## 2. Design Patterns Used
-
-### State Pattern
-The State Pattern allows an object to alter its behavior when its internal state changes. The object will appear to change its class. Instead of managing state using long `if-else` conditionals inside the context, we delegate behaviors to concrete `VendingMachineState` subclasses.
+## 🔄 State Machine Transition Diagram
 
 ```mermaid
 stateDiagram-v2
@@ -35,7 +32,11 @@ stateDiagram-v2
     DispenseState --> IdleState : dispense() & return_change()
 ```
 
-### UML Class Diagram
+---
+
+## 🧩 Design Patterns: State Pattern
+
+The State Pattern allows the `VendingMachine` to alter its behavior dynamically when its internal state changes. Instead of managing state transitions using nested conditional blocks (`if-else`), behavior is delegated to concrete `VendingMachineState` subclasses.
 
 ```mermaid
 classDiagram
@@ -73,3 +74,16 @@ classDiagram
     VendingMachineState <|-- DispenseState
     VendingMachine "1" *-- "1" VendingMachineState
 ```
+
+---
+
+## 🔌 REST API Endpoints (FastAPI)
+
+| Method | Endpoint | Description | Payloads / Parameters |
+| :---: | :--- | :--- | :--- |
+| `POST` | `/inventory/init` | Load inventory stock and reset machine state | `items` list |
+| `POST` | `/insert-coin` | Insert a coin into the machine (increments balance) | `coin` (float value) |
+| `POST` | `/select-product` | Select an item by code (evaluates balance) | `code` (string) |
+| `POST` | `/dispense` | Dispense the selected item and return any change due | None |
+| `POST` | `/refund` | Cancel transaction and return all inserted balance | None |
+| `GET` | `/status` | Retrieve real-time inventory count and balance | None |

@@ -1,22 +1,22 @@
-# LLD Project: Parking Lot System
+# 🚗 LLD Project: Thread-Safe Parking Lot System
 
-A Low-Level Design of an interview-grade, thread-safe **Parking Lot System** in Python, wrapped with a FastAPI web interface.
-
----
-
-## 1. System Requirements
-
-1. **Multiple Vehicle Types**: Support for Motorcycles, Cars, and Trucks.
-2. **Multiple Spot Types**: Motorcycle spots, Compact spots (for cars), and Large spots (for trucks).
-3. **Multiple Floors**: The parking lot contains multiple floors, each with its own set of spots.
-4. **Spot Allocation Strategy**: Automatically allocate the nearest available spot of the correct type to the vehicle (Nearest-to-Entrance Strategy).
-5. **Pricing Strategy**: Dynamic calculation of fees based on duration and vehicle type (e.g., flat rate first hour, then hourly rate).
-6. **Thread-Safety**: Concurrency control when multiple entry/exit gates attempt to book spots simultaneously.
-7. **FastAPI Web API**: Web interface showing real-world application of domain entities, services, and endpoints.
+A production-grade, interview-ready **Low-Level Design (LLD)** of a multi-floor, thread-safe **Parking Lot System** in Python, exposed via a clean **FastAPI** web service.
 
 ---
 
-## 2. Class Diagram (UML)
+## 🧭 System Requirements
+
+1. **Multiple Vehicle Types**: Support for `Motorcycles`, `Cars`, and `Trucks`.
+2. **Multiple Spot Types**: `Motorcycle Spots`, `Compact Spots` (for cars), and `Large Spots` (for trucks).
+3. **Multi-Floor Support**: The parking lot contains multiple floors, each managing its own allocation map.
+4. **Dynamic Spot Allocation**: Automatically allocates the nearest available spot of the correct type (Nearest-First strategy).
+5. **Dynamic Pricing Strategy**: Calculates fees dynamically based on duration and vehicle type (e.g., flat rate first hour, then hourly rate).
+6. **Thread-Safety & Concurrency**: Mutual exclusion control when multiple entry/exit gates attempt to book or vacate spots concurrently.
+7. **FastAPI Web API**: Web endpoints representing real-world services, domain entities, and occupancy statuses.
+
+---
+
+## 📊 Class Diagram (UML)
 
 ```mermaid
 classDiagram
@@ -102,16 +102,19 @@ classDiagram
 
 ---
 
-## 3. Concurrency Design
+## 🔒 Concurrency & Thread-Safety Design
 
-When multiple cars try to enter different gates simultaneously, there is a risk of a race condition: two gates might see the same spot as vacant and assign it to different vehicles.
-- **Solution**: We implement **Thread-Safety** in Python using `threading.Lock`. The `ParkingLotService` wraps all spot assignment operations inside a thread-safe context, protecting the shared state of `ParkingFloor` spots.
+When multiple vehicles enter through different gates simultaneously, race conditions can occur (e.g., assigning the same parking spot to two different vehicles).
+- **Thread-Safety Guard**: Implemented using Python's `threading.Lock` inside the `ParkingLotService` singleton. All spot allocation and checkout transactions are executed within atomic critical sections, preventing race conditions.
+- For a deeper dive into Python locking and synchronization paradigms, see the [concurrency.md](file:///c:/personal%20Projects/lld/docs/concurrency.md) wiki page.
 
 ---
 
-## 4. API Endpoints (FastAPI)
+## 🔌 REST API Endpoints (FastAPI)
 
-- `POST /parking-lot/init`: Initialize a parking lot with customized floors and spots.
-- `POST /park`: Park a vehicle and receive a ticket.
-- `POST /unpark`: Unpark a vehicle by providing a ticket ID, calculating the payment fee.
-- `GET /status`: View current occupancy rates per floor and spot type.
+| Method | Endpoint | Description | Payloads / Parameters |
+| :---: | :--- | :--- | :--- |
+| `POST` | `/parking-lot/init` | Initialize parking lot with custom floors and spot maps | `num_floors`, `spots_config` |
+| `POST` | `/park` | Park a vehicle and receive an entry ticket | `license_plate`, `vehicle_type` |
+| `POST` | `/unpark` | Vacate a spot, calculate duration, and return invoice | `ticket_id` |
+| `GET` | `/status` | Retrieve real-time occupancy maps per floor | None |

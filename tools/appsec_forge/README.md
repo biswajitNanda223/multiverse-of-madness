@@ -1,10 +1,10 @@
-# SecureForge 2026: Automated Application Security & Hardening Tool
+# 🛡️ SecureForge 2026: Application Security & Hardening Tool
 
-SecureForge 2026 is a specialized tool designed to evaluate, secure, and bootstrap Python applications using modern "Secure by Design" paradigms. It offers automated code scanning, threat modeling, and boilerplate generation aligned with OWASP Top 10 (2026) standards.
+SecureForge 2026 is a security analysis tool designed to audit, harden, and bootstrap Python applications using secure-by-design patterns aligned with OWASP Top 10 (2026) standards.
 
 ---
 
-## 1. Core Capabilities
+## 🧭 Core Capabilities
 
 ```mermaid
 graph TD
@@ -25,41 +25,42 @@ graph TD
 ```
 
 1. **Security Vulnerability Scanner**:
-   - Parses codebases to detect hardcoded API keys/passwords, weak hashes (MD5, SHA-1), raw SQL query string interpolation, wild-card CORS configurations, and insecure random number generators.
+   - Parses codebases to locate hardcoded API keys/secrets, weak hashing algorithms (MD5, SHA-1), raw SQL query string interpolation, wild-card CORS configurations, and insecure pseudo-random generators.
 2. **Hardened FastAPI Template Generator**:
-   - Automatically generates a complete, secure FastAPI microservice boilerplate containing CSP headers, HSTS, rate-limiting, CORS middleware, Pydantic inputs sanitization, and Argon2-based cryptographic utilities.
+   - Generates a production-grade FastAPI microservice template featuring secure CSP/HSTS headers, rate-limiting, CORS limits, and PBKDF2/SHA-256 cryptographic utilities.
 3. **STRIDE Threat Modeler**:
-   - Generates custom STRIDE threat models (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege) based on the application's components.
+   - Generates customized markdown threat models categorized by STRIDE definitions (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege) with remediation checklists.
 
 ---
 
-## 2. CLI Usage Guide
+## 💻 CLI Usage Guide
 
-You can run the scanner or generator directly using python commands:
+Execute scanner, generator, or threat modeler tasks directly via the CLI:
 
-### A. Scanning a Directory for Vulnerabilities
-Scan any directory or file for insecure patterns:
+### A. Scan a Directory for Vulnerabilities
+Scan a target directory or file for security violations:
 ```bash
 python -m tools.appsec_forge.cli scan --path ./projects/parking_lot
 ```
 
-### B. Generating a Secure Project Template
-Generate a secure, hardened FastAPI project boilerplate in a directory:
+### B. Generate a Hardened FastAPI Template
+Bootstrap a secure FastAPI microservice structure:
 ```bash
 python -m tools.appsec_forge.cli generate --output ./my_secured_service
 ```
 
-### C. Running Threat Modeling
-Generate a markdown threat model for your architecture:
+### C. Run STRIDE Threat Modeling
+Generate an architectural STRIDE threat model:
 ```bash
 python -m tools.appsec_forge.cli threat --type web --output threat_model.md
 ```
 
 ---
 
-## 3. Web Service API
+## 🔌 REST API Endpoints (FastAPI)
 
-SecureForge 2026 is also equipped with its own FastAPI server:
-- **`POST /sec/scan`**: Send source code files to analyze.
-- **`POST /sec/generate`**: Receive a zip/text dump of secure boilerplate templates.
-- **`POST /sec/threat-model`**: Get STRIDE threat models for your design schema.
+| Method | Endpoint | Description | Payloads / Parameters |
+| :---: | :--- | :--- | :--- |
+| `POST` | `/sec/scan` | Perform static vulnerability scan on a local codebase | `file_path` |
+| `POST` | `/sec/generate` | Generate secure FastAPI template code at a destination | `output_path` |
+| `POST` | `/sec/threat-model` | Generate STRIDE threat model markdown for an application | `app_type` |
