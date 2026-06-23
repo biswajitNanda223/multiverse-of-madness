@@ -26,11 +26,159 @@
     }
   ],
   "settings": {
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
     "files.exclude": {
       "**/.git": true,
       "**/.mypy_cache": true,
       "**/.pytest_cache": true,
-      "**/__pycache__": true
+      "**/__pycache__": true,
+      "**/*.pyc": true
     }
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "🚀 Start All Services (Compound)",
+        "type": "python",
+        "request": "launch",
+        "module": "uvicorn",
+        "args": [
+          "projects.parking_lot.main:app",
+          "--port",
+          "8001",
+          "--reload"
+        ],
+        "jinja": true
+      },
+      {
+        "name": "🚗 Start Parking Lot Service (Port 8001)",
+        "type": "python",
+        "request": "launch",
+        "module": "uvicorn",
+        "args": [
+          "projects.parking_lot.main:app",
+          "--port",
+          "8001",
+          "--reload"
+        ]
+      },
+      {
+        "name": "💸 Start Splitwise Service (Port 8002)",
+        "type": "python",
+        "request": "launch",
+        "module": "uvicorn",
+        "args": [
+          "projects.splitwise.main:app",
+          "--port",
+          "8002",
+          "--reload"
+        ]
+      },
+      {
+        "name": "🪙 Start Vending Machine Service (Port 8003)",
+        "type": "python",
+        "request": "launch",
+        "module": "uvicorn",
+        "args": [
+          "projects.vending_machine.main:app",
+          "--port",
+          "8003",
+          "--reload"
+        ]
+      },
+      {
+        "name": "🛡️ Start SecureForge 2026 Service (Port 8004)",
+        "type": "python",
+        "request": "launch",
+        "module": "uvicorn",
+        "args": [
+          "tools.appsec_forge.main:app",
+          "--port",
+          "8004",
+          "--reload"
+        ]
+      }
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "🧪 Run Pytest Suite",
+        "type": "shell",
+        "command": "python",
+        "args": [
+          "-m",
+          "pytest",
+          "--import-mode=importlib"
+        ],
+        "group": {
+          "kind": "test",
+          "isDefault": true
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "new"
+        }
+      },
+      {
+        "label": "✨ Run Code Formatting (Black & Isort)",
+        "type": "shell",
+        "command": "python -m isort . && python -m black .",
+        "group": "build",
+        "presentation": {
+          "reveal": "silent"
+        }
+      },
+      {
+        "label": "🔍 Run Static Type Checking (Mypy)",
+        "type": "shell",
+        "command": "python",
+        "args": [
+          "-m",
+          "mypy",
+          "--ignore-missing-imports",
+          "--disallow-untyped-defs",
+          "--explicit-package-bases",
+          "."
+        ],
+        "group": "build",
+        "presentation": {
+          "reveal": "always"
+        }
+      },
+      {
+        "label": "🧹 Run Code Style Linter (Flake8)",
+        "type": "shell",
+        "command": "python",
+        "args": [
+          "-m",
+          "flake8",
+          "--max-line-length=100",
+          "--extend-ignore=E203",
+          "."
+        ],
+        "group": "build",
+        "presentation": {
+          "reveal": "always"
+        }
+      }
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "ms-python.black-formatter",
+      "charliermarsh.ruff",
+      "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
+      "bierner.markdown-mermaid"
+    ]
   }
 }
