@@ -15,8 +15,12 @@ Understand how software products are built from initial requirements analysis to
 ### 3. [UML Diagrams Guide](file:///c:/personal%20Projects/lld/docs/uml_guide.md)
 Discover how to draw and read UML diagrams. It covers class structural relationships (Inheritance, Implementation, Association, Aggregation, Composition, Dependency) and behavioral diagrams (Sequence and State diagrams) using Mermaid.
 
+### 4. [High-Level System Design Guide](file:///c:/personal%20Projects/lld/system_design/README.md)
+A 13-day notes-based journey through HLD building blocks—caching, sharding, consistent hashing, messaging queues, CDNs, and reliability engineering with rich interactive Mermaid diagrams.
+
 ---
 
 ## 🛠️ Monorepo Navigation
+- **System Design Guide**: [system_design/](file:///c:/personal%20Projects/lld/system_design/) - 13-Day HLD Bootcamp notes and diagrams.
 - **Design Patterns directory**: [patterns/](file:///c:/personal%20Projects/lld/patterns/) - The 23 Gang of Four (GoF) design patterns implemented in Python.
 - **Projects directory**: [projects/](file:///c:/personal%20Projects/lld/projects/) - End-to-end, multi-pattern FastAPI web applications (Parking Lot, Splitwise, Vending Machine).

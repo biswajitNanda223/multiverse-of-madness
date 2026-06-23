@@ -1,0 +1,36 @@
+{
+  "folders": [
+    {
+      "name": "Root Project",
+      "path": "."
+    },
+    {
+      "name": "13-Day HLD Bootcamp",
+      "path": "system_design"
+    },
+    {
+      "name": "Design Patterns (LLD)",
+      "path": "patterns"
+    },
+    {
+      "name": "FastAPI Projects",
+      "path": "projects"
+    },
+    {
+      "name": "Helper Tools",
+      "path": "tools"
+    },
+    {
+      "name": "Conceptual Wiki",
+      "path": "docs"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/.mypy_cache": true,
+      "**/.pytest_cache": true,
+      "**/__pycache__": true
+    }
+  }
+}

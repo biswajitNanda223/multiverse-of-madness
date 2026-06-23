@@ -20,6 +20,9 @@ lld/
 │   ├── sdlc.md                 # SDLC methodologies (Agile vs Waterfall, HLD vs LLD)
 │   ├── oop_fundamentals.md     # Encapsulation, Abstraction, SOLID principles in Python
 │   └── uml_guide.md            # UML Class, Sequence, and State diagrams via Mermaid
+├── system_design/              # High-Level Design (HLD) 13-Day Guide & diagrams
+│   ├── README.md               # Guide index & roadmap
+│   └── Day-01-to-13.md         # Daily conceptual HLD notes
 ├── patterns/                   # 23 Gang of Four (GoF) design patterns in Python
 │   ├── creational/             # Singleton, Factory Method, Abstract Factory, Builder, Prototype
 │   ├── structural/             # Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy
@@ -60,6 +63,9 @@ Multi-pattern real-world services:
 
 ### 4. Cyber Security Hardening Tools (`tools/`)
 - **[SecureForge 2026](file:///c:/personal%20Projects/lld/tools/appsec_forge/) (Port 8004)**: Security scanning tool and API checking for SQL Injections, weak cryptography (MD5/SHA1), hardcoded secrets, and wildcard CORS policies. It automatically outputs STRIDE threat models and hardened FastAPI boilerplates.
+
+### 5. High-Level System Design Guide (`system_design/`)
+- **[System Design 13-Day Bootcamp](file:///c:/personal%20Projects/lld/system_design/README.md)**: A complete, structured journey through HLD building blocks—client-server models, OSI/TCP-IP networking, SQL vs NoSQL, caching strategies, monoliths vs microservices, load balancing, sharding, replication quorums, messaging systems, CDNs, and reliability engineering. Enhanced with interactive **Mermaid.js** diagrams.
 
 ---
 
