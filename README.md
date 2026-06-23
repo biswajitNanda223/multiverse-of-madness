@@ -1,5 +1,9 @@
 # Advanced Python Low-Level Design (LLD) Monorepo (2026 Edition)
 
+<p align="center">
+  <img src="assets/repo_banner.png" alt="Advanced Python LLD & HLD Monorepo Banner" width="100%">
+</p>
+
 [![CI Pipeline](https://github.com/biswajitNanda223/multiverse-of-madness/actions/workflows/ci.yml/badge.svg)](https://github.com/biswajitNanda223/multiverse-of-madness/actions/workflows/ci.yml)
 [![Python Version](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-green.svg)](https://fastapi.tiangolo.com)
