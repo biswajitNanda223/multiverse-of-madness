@@ -18,6 +18,12 @@ Discover how to draw and read UML diagrams. It covers class structural relations
 ### 4. [High-Level System Design Guide](file:///c:/personal%20Projects/lld/system_design/README.md)
 A 13-day notes-based journey through HLD building blocks—caching, sharding, consistent hashing, messaging queues, CDNs, and reliability engineering with rich interactive Mermaid diagrams.
 
+### 5. [Software Design Principles](file:///c:/personal%20Projects/lld/docs/design_principles.md)
+Understand key programming rules including DRY (Don't Repeat Yourself), KISS (Keep It Simple, Stupid), and YAGNI (You Aren't Gonna Need It) with pythonic before/after examples.
+
+### 6. [Concurrency & Thread-Safety](file:///c:/personal%20Projects/lld/docs/concurrency.md)
+Master multithreading, multiprocessing, the GIL (Global Interpreter Lock), critical sections, mutual exclusion locks, semaphores, and async queue patterns in Python.
+
 ---
 
 ## 🛠️ Monorepo Navigation

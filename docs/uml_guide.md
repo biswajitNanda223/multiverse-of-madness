@@ -116,3 +116,45 @@ stateDiagram-v2
     ReadyToPay --> Idle : Cancelled / Refunded
     Dispensing --> Idle : Dispense Complete
 ```
+
+### C. Use Case Diagrams (User Interactions)
+Use case diagrams represent the system's external actors and the specific actions (use cases) they perform. Although Mermaid doesn't have a dedicated native use-case shape, we use standard block architectures to build them cleanly.
+
+```mermaid
+flowchart LR
+    actor User as "Customer"
+    actor Admin as "System Administrator"
+    
+    subgraph VendingMachine ["Boundary: Vending Machine"]
+        UC1["Select Product"]
+        UC2["Insert Coins"]
+        UC3["Collect Refund"]
+        UC4["Restock Inventory"]
+    end
+    
+    User --> UC1
+    User --> UC2
+    User --> UC3
+    
+    Admin --> UC4
+```
+
+### D. Activity Diagrams (Workflow Logic)
+Activity diagrams represent the flow of control from one activity to another, showcasing decision pathways and parallel executions (fork/join).
+
+```mermaid
+flowchart TD
+    Start([Start]) --> InsertCoin["Insert Coin"]
+    InsertCoin --> CheckValue{"Is Coin Valid?"}
+    
+    CheckValue -->|No| Reject["Eject Coin"] --> Start
+    CheckValue -->|Yes| UpdateBalance["Update Balance Display"]
+    
+    UpdateBalance --> SelectProduct["Select Product"]
+    SelectProduct --> CheckStock{"Is Item in Stock?"}
+    
+    CheckStock -->|No| OutOfStock["Display 'Out of Stock'"] --> SelectProduct
+    CheckStock -->|Yes| Dispense["Dispense Item"]
+    
+    Dispense --> End([End])
+```

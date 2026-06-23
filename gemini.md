@@ -9,13 +9,17 @@ As an AI agent or contributor, please follow these guidelines when adding featur
 ## 1. Directory Structure Rules
 
 All code and documents must be located in their respective directories:
-- **docs/**: High-level or OOP-level concepts (Agile, SOLID, OOP basic elements).
+- **docs/**: High-level or OOP-level concepts (Agile, SOLID, OOP basic elements, Concurrency, Design Principles).
+- **system_design/**: High-Level Design (HLD) concepts, distributed systems building blocks (caching, sharding, CDN, reliability), and interactive Mermaid diagrams.
 - **patterns/<type>/<pattern_name>/**: Concrete design pattern.
   - Must contain `README.md` explaining the pattern with a Mermaid UML diagram.
   - Must contain `pattern.py` with fully typed code.
   - Must contain `test_pattern.py` with `pytest` unit tests.
 - **projects/<project_name>/**: Real-world, multi-pattern projects using FastAPI.
   - Must have a clean architecture separation (Domain, Application, Infrastructure).
+
+> [!IMPORTANT]
+> This repository is **strictly Python-only** for all implementation code, patterns, tests, and web projects. Do not introduce other languages for backend or service components.
 
 ---
 
@@ -26,7 +30,7 @@ This repository enforces strict, modern Python coding standards:
 - **Formatting**: Strictly format code using `black` (100 char line limit) and `isort`.
 - **Linting**: No unresolved warnings in `flake8`.
 - **Docstrings**: Document all classes and public methods using Google style or Sphinx style docstrings.
-- **Thread Safety**: For designs containing state (e.g., Singleton, Parking Lot allocation, Vending Machine), ensure thread-safety using Python's `threading.Lock`.
+- **Thread Safety**: For designs containing state (e.g., Singleton, Parking Lot allocation, Vending Machine), ensure thread-safety using Python's `threading.Lock` or `threading.RLock`. Refer to [concurrency.md](file:///c:/personal%20Projects/lld/docs/concurrency.md) for detailed locking and synchronization rules.
 
 ---
 
