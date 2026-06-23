@@ -6,7 +6,7 @@
 [![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Static Types](https://img.shields.io/badge/mypy-strict-blue.svg)](http://mypy-lang.org/)
 
-Welcome to the ultimate, production-grade **Python Low-Level Design (LLD) Monorepo**. This project is designed as an educational encyclopedia and modern reference for OOP, SOLID design principles, structural UML diagrams, Gang of Four (GoF) design patterns, and container-orchestrated microservice architectures in Python.
+Welcome to the ultimate, production-grade **Python Low-Level Design (LLD) & High-Level System Design (HLD) Monorepo**. This project serves as a comprehensive educational encyclopedia and reference, spanning 13 days of distributed systems building blocks (HLD), core OOP/SOLID design principles, structural UML diagrams, the 23 Gang of Four (GoF) design patterns, and production-ready container-orchestrated FastAPI microservices.
 
 ---
 
